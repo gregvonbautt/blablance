@@ -1,4 +1,4 @@
-[# Blablance
+# Blablance
 
 **Blablance** is an Android app that helps users track and reflect on the balance between activities
 they personally define as positive or negative. The app is designed to be flexible, non-judgmental,
@@ -31,4 +31,3 @@ perfection or productivity - it’s awareness and balance, on the user’s own t
 This project is currently in development. The initial release will focus on the core tracking
 functionality and a clean, simple user interface. Future versions may include optional features such
 as reminders, data export, and simple analytics.
-]()
