@@ -1,4 +1,4 @@
-package dev.gbautin.blablance.ui.notifications
+package dev.gbautin.blablance.ui.stats
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import dev.gbautin.blablance.databinding.FragmentNotificationsBinding
+import dev.gbautin.blablance.databinding.FragmentStatsBinding
 
-class NotificationsFragment : Fragment() {
+class StatsFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentStatsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val statsViewModel =
+            ViewModelProvider(this).get(StatsViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentStatsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textStats
+        statsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
