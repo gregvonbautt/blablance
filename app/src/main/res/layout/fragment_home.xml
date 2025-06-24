@@ -21,29 +21,33 @@
 
     <LinearLayout
         android:id="@+id/button_container"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score_display">
 
-        <Button
-            android:id="@+id/button_minus"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="16dp"
-            android:text="Minus"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/negative_buttons_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginEnd="8dp" />
 
-        <Button
-            android:id="@+id/button_plus"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:text="Plus"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/positive_buttons_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="start"
+            android:layout_marginStart="8dp" />
 
     </LinearLayout>
 
