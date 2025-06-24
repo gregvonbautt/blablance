@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_stats"
-        android:name="dev.gbautin.blablance.ui.stats.StatsFragment"
-        android:label="@string/title_stats"
-        tools:layout="@layout/fragment_stats" />
+        android:id="@+id/navigation_journal"
+        android:name="dev.gbautin.blablance.ui.journal.JournalFragment"
+        android:label="@string/title_journal"
+        tools:layout="@layout/fragment_journal" />
 
     <fragment
         android:id="@+id/navigation_settings"

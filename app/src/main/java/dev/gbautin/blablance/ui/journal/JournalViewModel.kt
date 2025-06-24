@@ -1,13 +1,13 @@
-package dev.gbautin.blablance.ui.stats
+package dev.gbautin.blablance.ui.journal
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class StatsViewModel : ViewModel() {
+class JournalViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is stats Fragment"
+        value = "This is Journal Fragment"
     }
     val text: LiveData<String> = _text
 }

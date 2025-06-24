@@ -1,4 +1,4 @@
-package dev.gbautin.blablance.ui.stats
+package dev.gbautin.blablance.ui.journal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import dev.gbautin.blablance.databinding.FragmentStatsBinding
+import dev.gbautin.blablance.databinding.FragmentJournalBinding
 
-class StatsFragment : Fragment() {
+class JournalFragment : Fragment() {
 
-    private var _binding: FragmentStatsBinding? = null
+    private var _binding: FragmentJournalBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class StatsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val statsViewModel =
-            ViewModelProvider(this).get(StatsViewModel::class.java)
+        val journalViewModel =
+            ViewModelProvider(this).get(JournalViewModel::class.java)
 
-        _binding = FragmentStatsBinding.inflate(inflater, container, false)
+        _binding = FragmentJournalBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textStats
-        statsViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textJournal
+        journalViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

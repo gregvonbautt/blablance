@@ -9,7 +9,7 @@ Blablance is an Android app for tracking and reflecting on the balance between u
 ## Architecture
 
 - **MainActivity**: Single activity hosting a bottom navigation with three main fragments
-- **Fragment Structure**: Home, Stats, and Settings fragments with corresponding ViewModels
+- **Fragment Structure**: Home, Journal, and Settings fragments with corresponding ViewModels
 - **Navigation**: Uses Android Navigation Component with bottom navigation
 - **UI Pattern**: MVVM with ViewBinding enabled
 - **Package Structure**: `dev.gbautin.blablance` with UI components organized by feature in `ui/` subdirectories
