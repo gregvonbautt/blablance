@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dev.gbautin.blablance.databinding.FragmentHomeBinding
+import dev.gbautin.blablance.data.EventManager
 
 class HomeFragment : Fragment() {
 
@@ -74,6 +75,7 @@ class HomeFragment : Fragment() {
         // Set click listener
         button.setOnClickListener {
             homeViewModel.adjustScore(scoreButton.scoreDelta)
+            EventManager.logEvent(scoreButton.title, scoreButton.scoreDelta)
         }
         
         return button

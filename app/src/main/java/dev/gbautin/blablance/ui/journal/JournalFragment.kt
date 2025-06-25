@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import dev.gbautin.blablance.databinding.FragmentJournalBinding
 
 class JournalFragment : Fragment() {
 
     private var _binding: FragmentJournalBinding? = null
+    private lateinit var eventAdapter: EventAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,11 +29,21 @@ class JournalFragment : Fragment() {
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textJournal
-        journalViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        setupRecyclerView()
+
+        journalViewModel.events.observe(viewLifecycleOwner) { events ->
+            eventAdapter.submitList(events)
         }
+
         return root
+    }
+
+    private fun setupRecyclerView() {
+        eventAdapter = EventAdapter()
+        binding.eventsRecyclerView.apply {
+            adapter = eventAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     override fun onDestroyView() {
