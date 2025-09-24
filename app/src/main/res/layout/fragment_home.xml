@@ -20,35 +20,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/button_container"
+        android:id="@+id/first_row_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score_display">
 
-        <LinearLayout
-            android:id="@+id/negative_buttons_container"
+        <Button
+            android:id="@+id/positive_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="end"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:text="Very Good"
+            android:textSize="16sp" />
 
-        <LinearLayout
-            android:id="@+id/positive_buttons_container"
+        <Button
+            android:id="@+id/negative_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="start"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"
+            android:text="Less Good"
+            android:textSize="16sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/adjust_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Adjust"
+        android:textSize="16sp"
+        android:paddingHorizontal="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_row_buttons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
