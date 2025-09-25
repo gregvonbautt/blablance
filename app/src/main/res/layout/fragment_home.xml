@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Very Good"
+            android:text="@string/title_positive"
             android:textSize="16sp" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:text="Less Good"
+            android:text="@string/title_negative"
             android:textSize="16sp" />
 
     </LinearLayout>
