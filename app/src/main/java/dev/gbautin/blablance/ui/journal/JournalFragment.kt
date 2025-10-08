@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.gbautin.blablance.databinding.FragmentJournalBinding
+import dev.gbautin.blablance.ui.home.HomeViewModel
 
 class JournalFragment : Fragment() {
 
     private var _binding: FragmentJournalBinding? = null
-    private lateinit var eventAdapter: EventAdapter
+    private lateinit var activityAdapter: JournalActivityAdapter
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,25 +25,24 @@ class JournalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val journalViewModel =
-            ViewModelProvider(this).get(JournalViewModel::class.java)
-
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         setupRecyclerView()
 
-        journalViewModel.events.observe(viewLifecycleOwner) { events ->
-            eventAdapter.submitList(events)
+        homeViewModel.activityEntries.observe(viewLifecycleOwner) { activities ->
+            activityAdapter.submitList(activities)
         }
 
         return root
     }
 
     private fun setupRecyclerView() {
-        eventAdapter = EventAdapter()
+        activityAdapter = JournalActivityAdapter { entryId ->
+            homeViewModel.removeActivityEntry(entryId)
+        }
         binding.eventsRecyclerView.apply {
-            adapter = eventAdapter
+            adapter = activityAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
