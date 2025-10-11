@@ -14,6 +14,8 @@
     <string name="dialog_delete_activity_message">Are you sure you want to delete \"%1$s\"?</string>
     <string name="dialog_remove_activity_title">Remove Activity</string>
     <string name="dialog_remove_activity_message">Are you sure you want to remove \"%1$s\"?</string>
+    <string name="dialog_edit_activity_title">Edit Activity</string>
+    <string name="dialog_add_activity_title">Add Activity</string>
 
     <!-- Button labels -->
     <string name="button_delete">Delete</string>
@@ -23,6 +25,7 @@
     <string name="button_add_activity">Add Activity</string>
     <string name="button_remove_activity">Remove Activity</string>
     <string name="button_adjust">Adjust</string>
+    <string name="button_save">Save</string>
 
     <!-- Placeholder text (for UI preview in layout files) -->
     <string name="placeholder_activity_name">Activity Name</string>

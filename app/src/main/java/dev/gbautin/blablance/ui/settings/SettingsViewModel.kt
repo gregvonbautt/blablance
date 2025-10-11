@@ -14,4 +14,17 @@ class SettingsViewModel : ViewModel() {
     fun deleteActivity(activity: Activity) {
         ActivityRepository.deleteActivity(activity)
     }
+
+    fun updateActivity(activity: Activity) {
+        ActivityRepository.updateActivity(activity)
+    }
+
+    fun addActivity(activity: Activity) {
+        ActivityRepository.addActivity(activity)
+    }
+
+    fun getNextActivityId(): Int {
+        val allActivities = activities.value ?: emptyList()
+        return (allActivities.maxOfOrNull { it.id } ?: 0) + 1
+    }
 }
