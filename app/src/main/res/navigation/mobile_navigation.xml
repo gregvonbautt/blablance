@@ -27,7 +27,19 @@
         android:id="@+id/navigation_settings"
         android:name="dev.gbautin.blablance.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settings_to_configure_activities"
+            app:destination="@id/configure_activities_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/configure_activities_fragment"
+        android:name="dev.gbautin.blablance.ui.settings.ConfigureActivitiesFragment"
+        android:label="@string/title_configure_activities"
+        tools:layout="@layout/fragment_configure_activities" />
 
     <fragment
         android:id="@+id/activity_modal_fragment"

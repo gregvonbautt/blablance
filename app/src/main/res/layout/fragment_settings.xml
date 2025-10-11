@@ -7,32 +7,28 @@
     android:orientation="vertical"
     tools:context=".ui.settings.SettingsFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <LinearLayout
+        android:id="@+id/configureActivitiesItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:tabGravity="fill">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_positive" />
+            android:text="@string/settings_configure_activities"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_negative" />
+    </LinearLayout>
 
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activitiesRecyclerView"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_settings_activity" />
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
 </LinearLayout>
