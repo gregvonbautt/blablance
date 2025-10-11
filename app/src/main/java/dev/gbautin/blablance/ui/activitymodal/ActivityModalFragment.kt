@@ -47,15 +47,23 @@ class ActivityModalFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val isPositive = arguments?.getBoolean("isPositive", false) ?: false
-        val activities = if (isPositive) homeViewModel.positiveActivities else homeViewModel.negativeActivities
+        val activitiesLiveData = if (isPositive) homeViewModel.positiveActivities else homeViewModel.negativeActivities
 
-        val adapter = ActivityAdapter(activities) { selectedActivity ->
+        val adapter = ActivityAdapter(emptyList()) { selectedActivity ->
             homeViewModel.addActivityEntry(selectedActivity)
             findNavController().navigateUp()
         }
 
         binding.activitiesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.activitiesRecyclerView.adapter = adapter
+
+        activitiesLiveData.observe(viewLifecycleOwner) { activities ->
+            val newAdapter = ActivityAdapter(activities) { selectedActivity ->
+                homeViewModel.addActivityEntry(selectedActivity)
+                findNavController().navigateUp()
+            }
+            binding.activitiesRecyclerView.adapter = newAdapter
+        }
     }
 
     override fun onDestroyView() {

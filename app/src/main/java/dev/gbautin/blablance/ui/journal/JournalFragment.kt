@@ -1,5 +1,6 @@
 package dev.gbautin.blablance.ui.journal
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.gbautin.blablance.data.ActivityEntry
 import dev.gbautin.blablance.databinding.FragmentJournalBinding
 import dev.gbautin.blablance.ui.home.HomeViewModel
 
@@ -38,13 +40,24 @@ class JournalFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        activityAdapter = JournalActivityAdapter { entryId ->
-            homeViewModel.removeActivityEntry(entryId)
+        activityAdapter = JournalActivityAdapter { entry ->
+            showDeleteConfirmation(entry)
         }
         binding.eventsRecyclerView.apply {
             adapter = activityAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    private fun showDeleteConfirmation(entry: ActivityEntry) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Remove Activity")
+            .setMessage("Are you sure you want to remove \"${entry.name}\"?")
+            .setPositiveButton("Remove") { _, _ ->
+                homeViewModel.removeActivityEntry(entry.id)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     override fun onDestroyView() {

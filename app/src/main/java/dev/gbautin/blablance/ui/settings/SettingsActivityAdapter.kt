@@ -1,35 +1,38 @@
-package dev.gbautin.blablance.ui.journal
+package dev.gbautin.blablance.ui.settings
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dev.gbautin.blablance.data.ActivityEntry
-import dev.gbautin.blablance.databinding.ItemJournalActivityBinding
-import java.time.format.DateTimeFormatter
+import dev.gbautin.blablance.databinding.ItemSettingsActivityBinding
+import dev.gbautin.blablance.ui.home.Activity
 
-class JournalActivityAdapter(
-    private val onRemoveActivity: (ActivityEntry) -> Unit
-) : ListAdapter<ActivityEntry, JournalActivityAdapter.ActivityViewHolder>(ActivityDiffCallback()) {
+class SettingsActivityAdapter(
+    private var activities: List<Activity>,
+    private val onEdit: (Activity) -> Unit,
+    private val onDelete: (Activity) -> Unit
+) : RecyclerView.Adapter<SettingsActivityAdapter.ActivityViewHolder>() {
 
     private var expandedPosition = -1
 
-    class ActivityViewHolder(private val binding: ItemJournalActivityBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(activity: ActivityEntry, isExpanded: Boolean, onItemClick: () -> Unit, onRemoveClick: () -> Unit) {
+    class ActivityViewHolder(private val binding: ItemSettingsActivityBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            activity: Activity,
+            isExpanded: Boolean,
+            onItemClick: () -> Unit,
+            onEditClick: () -> Unit,
+            onDeleteClick: () -> Unit
+        ) {
             binding.activityName.text = activity.name
             binding.activityScore.text = if (activity.scoreDelta > 0) "+${activity.scoreDelta}" else activity.scoreDelta.toString()
             binding.activityDescription.text = activity.description
 
-            val formatter = DateTimeFormatter.ofPattern("MMM dd, HH:mm")
-            binding.activityTimestamp.text = activity.timestamp.format(formatter)
-
             binding.activityDescription.visibility = if (isExpanded) View.VISIBLE else View.GONE
-            binding.removeActivityButton.visibility = if (isExpanded) View.VISIBLE else View.GONE
+            binding.actionButtons.visibility = if (isExpanded) View.VISIBLE else View.GONE
 
             binding.activityHeader.setOnClickListener { onItemClick() }
-            binding.removeActivityButton.setOnClickListener { onRemoveClick() }
+            binding.editButton.setOnClickListener { onEditClick() }
+            binding.deleteButton.setOnClickListener { onDeleteClick() }
 
             val scoreColor = if (activity.scoreDelta > 0) {
                 binding.root.context.getColor(android.R.color.holo_green_dark)
@@ -41,12 +44,12 @@ class JournalActivityAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityViewHolder {
-        val binding = ItemJournalActivityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSettingsActivityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ActivityViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
-        val activity = getItem(position)
+        val activity = activities[position]
         val isExpanded = position == expandedPosition
 
         holder.bind(
@@ -61,19 +64,20 @@ class JournalActivityAdapter(
                 }
                 notifyItemChanged(position)
             },
-            onRemoveClick = {
-                onRemoveActivity(activity)
+            onEditClick = {
+                onEdit(activity)
+            },
+            onDeleteClick = {
+                onDelete(activity)
             }
         )
     }
 
-    class ActivityDiffCallback : DiffUtil.ItemCallback<ActivityEntry>() {
-        override fun areItemsTheSame(oldItem: ActivityEntry, newItem: ActivityEntry): Boolean {
-            return oldItem.id == newItem.id
-        }
+    override fun getItemCount() = activities.size
 
-        override fun areContentsTheSame(oldItem: ActivityEntry, newItem: ActivityEntry): Boolean {
-            return oldItem == newItem
-        }
+    fun updateActivities(newActivities: List<Activity>) {
+        activities = newActivities
+        expandedPosition = -1
+        notifyDataSetChanged()
     }
 }
