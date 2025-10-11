@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
+import dev.gbautin.blablance.R
 import dev.gbautin.blablance.databinding.FragmentSettingsBinding
 import dev.gbautin.blablance.ui.home.Activity
 
@@ -53,12 +54,12 @@ class SettingsFragment : Fragment() {
 
     private fun showDeleteConfirmation(activity: Activity) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Activity")
-            .setMessage("Are you sure you want to delete \"${activity.name}\"?")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(R.string.dialog_delete_activity_title)
+            .setMessage(getString(R.string.dialog_delete_activity_message, activity.name))
+            .setPositiveButton(R.string.button_delete) { _, _ ->
                 settingsViewModel.deleteActivity(activity)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(R.string.button_cancel, null)
             .show()
     }
 

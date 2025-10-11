@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.gbautin.blablance.R
 import dev.gbautin.blablance.data.ActivityEntry
 import dev.gbautin.blablance.databinding.FragmentJournalBinding
 import dev.gbautin.blablance.ui.home.HomeViewModel
@@ -34,6 +35,7 @@ class JournalFragment : Fragment() {
 
         homeViewModel.activityEntries.observe(viewLifecycleOwner) { activities ->
             activityAdapter.submitList(activities)
+            updateEmptyState(activities.isEmpty())
         }
 
         return root
@@ -51,13 +53,18 @@ class JournalFragment : Fragment() {
 
     private fun showDeleteConfirmation(entry: ActivityEntry) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Remove Activity")
-            .setMessage("Are you sure you want to remove \"${entry.name}\"?")
-            .setPositiveButton("Remove") { _, _ ->
+            .setTitle(R.string.dialog_remove_activity_title)
+            .setMessage(getString(R.string.dialog_remove_activity_message, entry.name))
+            .setPositiveButton(R.string.button_remove) { _, _ ->
                 homeViewModel.removeActivityEntry(entry.id)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(R.string.button_cancel, null)
             .show()
+    }
+
+    private fun updateEmptyState(isEmpty: Boolean) {
+        binding.emptyStateText.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.eventsRecyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {

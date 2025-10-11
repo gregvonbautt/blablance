@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/activity_modal_fragment"
         android:name="dev.gbautin.blablance.ui.activitymodal.ActivityModalFragment"
-        android:label="Activity Modal"
+        android:label=""
         tools:layout="@layout/fragment_activity_modal">
 
         <argument

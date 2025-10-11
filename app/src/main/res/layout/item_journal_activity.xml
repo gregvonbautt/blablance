@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Activity Name" />
+                    android:text="@string/placeholder_activity_name" />
 
                 <TextView
                     android:id="@+id/activity_timestamp"
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textColor="@android:color/darker_gray"
-                    android:text="Jan 01, 10:30" />
+                    android:text="@string/placeholder_timestamp" />
 
             </LinearLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="+3" />
+                android:text="@string/placeholder_score" />
 
         </LinearLayout>
 
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
-            android:text="Activity description"
+            android:text="@string/placeholder_activity_description"
             android:visibility="gone" />
 
         <Button
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Remove Activity"
+            android:text="@string/button_remove_activity"
             android:backgroundTint="@android:color/holo_red_light"
             android:visibility="gone" />
 
