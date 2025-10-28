@@ -3,14 +3,18 @@ package dev.gbautin.blablance.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.gbautin.blablance.data.ActivityEntry
 import dev.gbautin.blablance.data.ActivityRepository
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 
 data class ScoreButton(
     val title: String,
     val scoreDelta: Int
 )
 
+@Serializable
 data class Activity(
     val id: Int,
     val name: String,
@@ -20,9 +24,9 @@ data class Activity(
 
 class HomeViewModel : ViewModel() {
 
-    private val _score = MutableLiveData<Int>().apply {
-        value = 0
-    }
+    private val dataStore = dev.gbautin.blablance.BlablanceApplication.getInstance().dataStoreManager
+
+    private val _score = MutableLiveData<Int>()
     val score: LiveData<Int> = _score
 
     private val _scoreButtons = listOf(
@@ -44,45 +48,82 @@ class HomeViewModel : ViewModel() {
 
     val negativeActivities: LiveData<List<Activity>> = ActivityRepository.negativeActivities
 
-    private val _activityEntries = MutableLiveData<List<ActivityEntry>>().apply {
-        value = emptyList()
-    }
+    private val _activityEntries = MutableLiveData<List<ActivityEntry>>()
     val activityEntries: LiveData<List<ActivityEntry>> = _activityEntries
 
+    init {
+        // Load state from DataStore
+        viewModelScope.launch {
+            dataStore.appStateFlow.collect { state ->
+                _score.postValue(state.score)
+                _activityEntries.postValue(state.activityEntries)
+            }
+        }
+    }
+
     fun adjustScore(delta: Int) {
-        _score.value = (_score.value ?: 0) + delta
+        viewModelScope.launch {
+            val currentState = dataStore.getAppState()
+            val newScore = currentState.score + delta
+            dataStore.updateScore(newScore)
+        }
     }
 
     fun addActivityEntry(activity: Activity) {
-        val entry = ActivityEntry(
-            name = activity.name,
-            description = activity.description,
-            scoreDelta = activity.scoreDelta
-        )
-        val currentEntries = _activityEntries.value ?: emptyList()
-        _activityEntries.value = listOf(entry) + currentEntries
-        adjustScore(activity.scoreDelta)
+        viewModelScope.launch {
+            val currentState = dataStore.getAppState()
+            val entry = ActivityEntry(
+                name = activity.name,
+                description = activity.description,
+                scoreDelta = activity.scoreDelta
+            )
+            val updatedEntries = listOf(entry) + currentState.activityEntries
+            val newScore = currentState.score + activity.scoreDelta
+
+            dataStore.saveAppState(
+                currentState.copy(
+                    activityEntries = updatedEntries,
+                    score = newScore
+                )
+            )
+        }
     }
 
     fun removeActivityEntry(entryId: String) {
-        val currentEntries = _activityEntries.value ?: emptyList()
-        val entryToRemove = currentEntries.find { it.id == entryId }
-        if (entryToRemove != null) {
-            _activityEntries.value = currentEntries.filter { it.id != entryId }
-            adjustScore(-entryToRemove.scoreDelta)
+        viewModelScope.launch {
+            val currentState = dataStore.getAppState()
+            val entryToRemove = currentState.activityEntries.find { it.id == entryId }
+            if (entryToRemove != null) {
+                val updatedEntries = currentState.activityEntries.filter { it.id != entryId }
+                val newScore = currentState.score - entryToRemove.scoreDelta
+
+                dataStore.saveAppState(
+                    currentState.copy(
+                        activityEntries = updatedEntries,
+                        score = newScore
+                    )
+                )
+            }
         }
     }
 
     fun incrementScore() {
-        _score.value = (_score.value ?: 0) + 1
+        adjustScore(1)
     }
 
     fun decrementScore() {
-        _score.value = (_score.value ?: 0) - 1
+        adjustScore(-1)
     }
 
     fun clearAllEntries() {
-        _activityEntries.value = emptyList()
-        _score.value = 0
+        viewModelScope.launch {
+            val currentState = dataStore.getAppState()
+            dataStore.saveAppState(
+                currentState.copy(
+                    activityEntries = emptyList(),
+                    score = 0
+                )
+            )
+        }
     }
 }
