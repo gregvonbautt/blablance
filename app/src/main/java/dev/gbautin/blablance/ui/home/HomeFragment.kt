@@ -46,6 +46,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_home_to_activity_modal, bundle)
         }
 
+        binding.adjustButton.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_adjust_menu)
+        }
+
         return root
     }
 

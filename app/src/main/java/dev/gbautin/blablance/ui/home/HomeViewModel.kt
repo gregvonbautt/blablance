@@ -80,4 +80,9 @@ class HomeViewModel : ViewModel() {
     fun decrementScore() {
         _score.value = (_score.value ?: 0) - 1
     }
+
+    fun clearAllEntries() {
+        _activityEntries.value = emptyList()
+        _score.value = 0
+    }
 }

@@ -30,7 +30,18 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        // Set up bottom navigation with custom behavior to clear nested screens
+        navView.setOnItemSelectedListener { item ->
+            // Navigate to the selected tab and pop any nested destinations
+            val navOptions = androidx.navigation.NavOptions.Builder()
+                .setPopUpTo(item.itemId, false)
+                .setLaunchSingleTop(true)
+                .build()
+
+            navController.navigate(item.itemId, null, navOptions)
+            true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

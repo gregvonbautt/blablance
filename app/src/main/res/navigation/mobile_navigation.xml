@@ -15,6 +15,10 @@
             android:id="@+id/action_home_to_activity_modal"
             app:destination="@id/activity_modal_fragment" />
 
+        <action
+            android:id="@+id/action_home_to_adjust_menu"
+            app:destination="@id/adjust_menu_fragment" />
+
     </fragment>
 
     <fragment
@@ -52,4 +56,10 @@
             app:argType="boolean" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/adjust_menu_fragment"
+        android:name="dev.gbautin.blablance.ui.adjustmenu.AdjustMenuFragment"
+        android:label="@string/adjust_menu_title"
+        tools:layout="@layout/fragment_adjust_menu" />
 </navigation>

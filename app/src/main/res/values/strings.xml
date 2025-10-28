@@ -41,4 +41,24 @@
 
     <!-- Settings menu items -->
     <string name="settings_configure_activities">Configure Activities</string>
+
+    <!-- Adjust menu options -->
+    <string name="adjust_menu_title">Adjust</string>
+    <string name="adjust_option_adjust_score">Adjust Score</string>
+    <string name="adjust_option_reset_to_zero">Reset to Zero</string>
+    <string name="adjust_option_full_reset">Full Reset</string>
+
+    <!-- Adjust score dialog -->
+    <string name="dialog_adjust_score_title">Adjust Score</string>
+    <string name="dialog_adjust_score_hint">Adjustment amount</string>
+    <string name="activity_name_adjustment">Adjustment</string>
+
+    <!-- Reset to zero dialog -->
+    <string name="dialog_reset_to_zero_title">Reset to Zero</string>
+    <string name="dialog_reset_to_zero_message">Reset the score to zero?</string>
+
+    <!-- Full reset dialog -->
+    <string name="dialog_full_reset_title">Full Reset</string>
+    <string name="dialog_full_reset_message">This will clear all activity entries and reset the score to zero. This action cannot be undone.</string>
+    <string name="dialog_full_reset_checkbox">I understand, delete all entries</string>
 </resources>
